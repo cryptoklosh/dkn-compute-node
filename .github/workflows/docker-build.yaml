@@ -27,6 +27,6 @@ jobs:
           push: true
           context: .
           platforms: linux/amd64
-          tags: ${{ vars.DOCKER__REGISTRY }}/node-gensyn:${{ inputs.tag }}
-          cache-from: type=registry,ref=${{ vars.DOCKER__REGISTRY }}/node-gensyn:cache
-          cache-to: type=registry,ref=${{ vars.DOCKER__REGISTRY }}/node-gensyn:cache,compression=zstd,mode=max
+          tags: ${{ vars.DOCKER__REGISTRY }}/node-dria:${{ inputs.tag }}
+          cache-from: type=registry,ref=${{ vars.DOCKER__REGISTRY }}/node-dria:cache
+          cache-to: type=registry,ref=${{ vars.DOCKER__REGISTRY }}/node-dria:cache,compression=zstd,mode=max
