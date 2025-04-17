@@ -1,5 +1,5 @@
 use dkn_utils::safe_read_env;
-use eyre::{eyre, Context, Result};
+use eyre::{eyre, Context, Ok, Result};
 use ollama_workflows::Model;
 use reqwest::Client;
 use serde::Deserialize;
@@ -118,10 +118,11 @@ impl GeminiConfig {
 
         // parse response
         if response.status().is_client_error() {
-            return Err(eyre!(
-                "Failed to fetch Gemini models:\n{}",
-                response.text().await.unwrap_or_default()
-            ));
+            return Ok(vec![]); // no models available
+            // return Err(eyre!(
+            //     "Failed to fetch Gemini models:\n{}",
+            //     response.text().await.unwrap_or_default()
+            // ));
         }
         let gemini_models = response.json::<GeminiModelsResponse>().await?;
 
