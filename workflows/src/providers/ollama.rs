@@ -17,9 +17,9 @@ const DEFAULT_OLLAMA_PORT: u16 = 11434;
 /// Automatically pull missing models by default?
 const DEFAULT_AUTO_PULL: bool = true;
 /// Timeout duration for checking model performance during a generation.
-const DEFAULT_TIMEOUT: Duration = Duration::from_secs(600);
+const DEFAULT_TIMEOUT: Duration = Duration::from_secs(1200);
 /// Minimum tokens per second (TPS) for checking model performance during a generation.
-const DEFAULT_MIN_TPS: f64 = 4.0;
+const DEFAULT_MIN_TPS: f64 = 0.0;
 
 /// Some models such as small embedding models, are hardcoded into the node.
 const HARDCODED_MODELS: [&str; 1] = ["hellord/mxbai-embed-large-v1:f16"];
