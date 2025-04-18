@@ -15,7 +15,7 @@ FROM rust:1.83 AS builder
 WORKDIR /usr/src/app
 COPY . .
 RUN --mount=type=cache,target=/usr/local/cargo/registry \
-    --mount=type=cache,target=/usr/src/app/target/target && \
+    --mount=type=cache,target=/usr/src/app/target/target \
     cargo build --bin dkn-compute --release
 
 # copy release binary to distroless
