@@ -1,12 +1,6 @@
 use eyre::{eyre, Context, Result};
 use ollama_workflows::{
-    ollama_rs::{
-        generation::{
-            completion::request::GenerationRequest,
-            embeddings::request::{EmbeddingsInput, GenerateEmbeddingsRequest},
-        },
-        Ollama,
-    },
+    ollama_rs::{generation::completion::request::GenerationRequest, Ollama},
     Model,
 };
 use std::env;
@@ -187,17 +181,14 @@ impl OllamaConfig {
     pub async fn test_performance(&self, ollama: &Ollama, model: &Model) -> bool {
         log::info!("Testing model {}", model);
 
-        // first generate a dummy embedding to load the model into memory (warm-up)
-        let request = GenerateEmbeddingsRequest::new(
-            model.to_string(),
-            EmbeddingsInput::Single("embedme".into()),
-        );
-        if let Err(err) = ollama.generate_embeddings(request).await {
-            log::error!("Failed to generate embedding for model {}: {}", model, err);
-            return false;
-        };
-
         let generation_request = GenerationRequest::new(model.to_string(), TEST_PROMPT.to_string());
+
+        // run a dummy generation for warm-up
+        log::debug!("Warming up Ollama for model {}", model);
+        if let Err(e) = ollama.generate(generation_request.clone()).await {
+            log::warn!("Ignoring model {}: Workflow failed with error {}", model, e);
+            return false;
+        }
 
         // then, run a sample generation with timeout and measure tps
         tokio::select! {
@@ -242,7 +233,7 @@ mod tests {
     #[tokio::test]
     #[ignore = "requires Ollama"]
     async fn test_ollama_prompt() {
-        let model = Model::default().to_string();
+        let model = Model::Llama3_3_70bInstructQ4Km.to_string();
         let ollama = Ollama::default();
         ollama.pull_model(model.clone(), false).await.unwrap();
         let prompt = "The sky appears blue during the day because of a process called scattering. \
@@ -299,7 +290,7 @@ mod tests {
         ]
     }"#;
         let workflow: Workflow = serde_json::from_str(workflow).unwrap();
-        let exe = Executor::new(Model::default());
+        let exe = Executor::new(Model::Llama3_3_70bInstructQ4Km);
         let mut memory = ProgramMemory::new();
 
         let result = exe.execute(None, &workflow, &mut memory).await;
