@@ -161,7 +161,6 @@ impl DriaWorkflowsConfig {
     #[inline]
     pub fn get_providers(&self) -> Vec<ModelProvider> {
         self.models.iter().fold(Vec::new(), |mut unique, m| {
-            println!("Model [{}] provided", m.to_string());
             let provider = m.provider();
 
             if !unique.contains(&provider) {
