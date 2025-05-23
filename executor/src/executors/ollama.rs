@@ -13,9 +13,9 @@ const DEFAULT_OLLAMA_HOST: &str = "http://127.0.0.1";
 const DEFAULT_OLLAMA_PORT: u16 = 11434;
 
 /// Timeout duration for checking model performance during a generation.
-const PERFORMANCE_TIMEOUT: Duration = Duration::from_secs(120);
+const PERFORMANCE_TIMEOUT: Duration = Duration::from_secs(600);
 /// Minimum tokens per second (TPS) for checking model performance during a generation.
-const PERFORMANCE_MIN_TPS: f64 = 10.0;
+const PERFORMANCE_MIN_TPS: f64 = 0.0;
 
 /// Ollama-specific configurations.
 #[derive(Clone)]
