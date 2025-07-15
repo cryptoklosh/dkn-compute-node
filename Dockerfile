@@ -26,8 +26,7 @@ COPY --from=builder /usr/src/app/target/release/dkn-compute /root/dkn-compute
 
 COPY entrypoint.sh /root/entrypoint.sh
 RUN chmod +x /root/entrypoint.sh
-ENTRYPOINT [ "/root/entrypoint.sh" ]
 
 EXPOSE 8080
 
-CMD ["/root/dkn-compute"]
+ENTRYPOINT [ "/root/entrypoint.sh" ]
