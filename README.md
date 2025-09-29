@@ -24,7 +24,7 @@
     <a href="https://hub.docker.com/repository/docker/firstbatch/dkn-compute-node/general" target="_blank">
         <img alt="Docker Version" src="https://img.shields.io/docker/v/firstbatch/dkn-compute-node?logo=Docker&label=image&color=2496ED&sort=semver">
     </a>
-    <a href="https://discord.gg/dria" target="_blank">
+    <a href="https://dria.co/discord" target="_blank">
         <img alt="Discord" src="https://dcbadge.vercel.app/api/server/dria?style=flat">
     </a>
 </p>
